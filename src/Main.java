@@ -19,10 +19,14 @@ public class Main {
 				graph.addEdge(7, 4);
 				graph.addEdge(0, 7);
 
-				graph.print();
+				GraphPrinter
+						.console()
+						.print(graph.getAdjacencyMatrix());
 
 				graph.removeVertex(2);
 
-				graph.print();
+			GraphPrinter
+					.console()
+					.print(graph.getAdjacencyMatrix());
     }
 }

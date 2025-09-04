@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class UndirectedGraph implements Graph {
-	ArrayList<ArrayList<Integer>> adjMatrix;
+	private ArrayList<ArrayList<Integer>> adjMatrix;
 
 	public UndirectedGraph() {
 		adjMatrix = new ArrayList<ArrayList<Integer>> ();
@@ -42,7 +42,7 @@ public class UndirectedGraph implements Graph {
 		}
 	}
 
-	public String addEdge(int nodeA, int nodeB) {
+	public boolean addEdge(int nodeA, int nodeB) {
 		if (!isValidNode(nodeA) || !isValidNode(nodeB)) {
 			throw new IllegalArgumentException("Invalid node index, valid indexes are 0-" + (adjMatrix.size() - 1));
 		}
@@ -50,23 +50,10 @@ public class UndirectedGraph implements Graph {
 		increment(nodeA, nodeB);
 		increment(nodeB, nodeA);
 
-		return nodeA + " -- " + nodeB;
+		return true;
 	}
 
-	public void print() {
-		for (int i = 0; i < adjMatrix.size(); i++) {
-			ArrayList<Integer> currRow = adjMatrix.get(i);
-			System.out.print(i + " | ");
-
-			for (int j = 0; j < currRow.size(); j++) {
-				System.out.print(currRow.get(j) + " ");
-			}
-
-			System.out.print("\n");
-		}
-
-		System.out.print("\n");
-	}
+	public ArrayList<ArrayList<Integer>> getAdjacencyMatrix() { return adjMatrix; }
 
 	private void increment(int from, int to) {
 		adjMatrix.get(from).set(to, adjMatrix.get(from).get(to) + 1);
