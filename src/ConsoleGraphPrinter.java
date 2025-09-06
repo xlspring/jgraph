@@ -1,11 +1,14 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ConsoleGraphPrinter implements GraphPrinter {
+	private ConsoleGraphPrinter() { };
+
 	public static final ConsoleGraphPrinter INSTANCE = new ConsoleGraphPrinter();
 
 	@Override
-	public void print(ArrayList<ArrayList<Integer>> adjMatrix) {
+	public void print(Graph graph) {
+		ArrayList<ArrayList<Integer>> adjMatrix = graph.getAdjacencyMatrix();
+
 		System.out.print("    ");
 
 		for (int i = 0; i < adjMatrix.size(); i++) {
