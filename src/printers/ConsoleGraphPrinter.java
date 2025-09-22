@@ -1,3 +1,7 @@
+package printers;
+
+import graphs.Graph;
+
 import java.util.ArrayList;
 
 public class ConsoleGraphPrinter implements GraphPrinter {

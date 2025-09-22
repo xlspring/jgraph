@@ -1,29 +1,23 @@
+import graphs.DirectedGraph;
+import printers.GraphPrinter;
+
 public class Main {
     public static void main(String[] args) {
-			System.out.print("Graph thingy!\n");
+			System.out.print("graphs.Graph thingy!\n");
 
-			UndirectedGraph graph = new UndirectedGraph();
+			DirectedGraph graph = new DirectedGraph();
 
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 6; i++) {
 				graph.addVertex();
 			}
 
-			graph.addEdge(0, 2);
 			graph.addEdge(0, 1);
-			graph.addEdge(0, 3);
+			graph.addEdge(1, 2);
+			graph.addEdge(2, 0);
+			graph.addEdge(0, 2);
 			graph.addEdge(3, 4);
-			graph.addEdge(3, 5);
-			graph.addEdge(4, 6);
-			graph.addEdge(6, 2);
-			graph.addEdge(7, 7);
-			graph.addEdge(7, 4);
-			graph.addEdge(0, 7);
-
-			GraphPrinter
-					.console()
-					.print(graph);
-
-			graph.removeVertex(2);
+			graph.addEdge(4, 5);
+			graph.addEdge(5, 3);
 
 			GraphPrinter
 					.console()

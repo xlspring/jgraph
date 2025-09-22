@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package printers;
+
+import graphs.Graph;
 
 public interface GraphPrinter {
 	void print(Graph graph);

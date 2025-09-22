@@ -1,3 +1,8 @@
+package printers;
+
+import graphs.DirectedGraph;
+import graphs.Graph;
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,8 +18,20 @@ public class FileGraphPrinter implements GraphPrinter {
 	public void print(Graph graph) {
 		ArrayList<ArrayList<Integer>> adjMatrix = graph.getAdjacencyMatrix();
 
-		StringBuffer sb = new StringBuffer();
-		sb.append("Graph g {\n");
+		String arrow, header;
+		boolean isDirected = false;
+
+		if (graph instanceof DirectedGraph) {
+			arrow = " -> ";
+			header = "digraph g {\n";
+			isDirected = true;
+		} else {
+			arrow = " -- ";
+			header = "graph g {\n";
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(header);
 
 		System.out.println();
 
@@ -26,11 +43,15 @@ public class FileGraphPrinter implements GraphPrinter {
 					sb
 						.append("  ")
 						.append(i)
-						.append(" -- ")
+						.append(arrow)
 						.append(j)
 						.append("\n");
 
-					decrementEdge(adjMatrix, i, j);
+					if (isDirected) {
+						decrementDirectedEdge(adjMatrix, i, j);
+					} else {
+						decrementUndirectedEdge(adjMatrix, i, j);
+					}
 				}
 			}
 		}
@@ -41,9 +62,13 @@ public class FileGraphPrinter implements GraphPrinter {
 		writeToFile(sb.toString());
 	}
 
-	private void decrementEdge(ArrayList<ArrayList<Integer>> adjMatrix, int i, int j) {
+	private void decrementUndirectedEdge(ArrayList<ArrayList<Integer>> adjMatrix, int i, int j) {
 		adjMatrix.get(i).set(j, adjMatrix.get(i).get(j) - 1);
 		adjMatrix.get(j).set(i, adjMatrix.get(j).get(i) - 1);
+	}
+
+	private void decrementDirectedEdge(ArrayList<ArrayList<Integer>> adjMatrix, int i, int j) {
+		adjMatrix.get(i).set(j, adjMatrix.get(i).get(j) - 1);
 	}
 
 	private void createFile() {

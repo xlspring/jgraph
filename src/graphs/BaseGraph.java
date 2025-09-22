@@ -1,10 +1,12 @@
+package graphs;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class UndirectedGraph implements Graph {
-	private ArrayList<ArrayList<Integer>> adjMatrix;
+public abstract class BaseGraph implements Graph {
+	protected ArrayList<ArrayList<Integer>> adjMatrix;
 
-	public UndirectedGraph() {
+	public BaseGraph() {
 		adjMatrix = new ArrayList<ArrayList<Integer>> ();
 	}
 
@@ -42,24 +44,15 @@ public class UndirectedGraph implements Graph {
 		}
 	}
 
-	public boolean addEdge(int nodeA, int nodeB) {
-		if (!isValidNode(nodeA) || !isValidNode(nodeB)) {
-			throw new IllegalArgumentException("Invalid node index, valid indexes are 0-" + (adjMatrix.size() - 1));
-		}
-
-		increment(nodeA, nodeB);
-		increment(nodeB, nodeA);
-
-		return true;
-	}
+	public abstract boolean addEdge(int nodeA, int nodeB);
 
 	public ArrayList<ArrayList<Integer>> getAdjacencyMatrix() { return adjMatrix; }
 
-	private void increment(int from, int to) {
+	protected void increment(int from, int to) {
 		adjMatrix.get(from).set(to, adjMatrix.get(from).get(to) + 1);
 	}
 
-	private boolean isValidNode(int node) {
+	protected boolean isValidNode(int node) {
 		return node >= 0 && node < adjMatrix.size();
 	}
 }
